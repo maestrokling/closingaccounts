@@ -1,0 +1,307 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+}
+const { 
+  title, 
+  description = "A compassionate, practical guide to closing the accounts of someone who has died. Free. No tracking. No sales pitches.",
+  canonical 
+} = Astro.props;
+const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site).href;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | Closing Accounts</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  <meta property="og:title" content={`${title} | Closing Accounts`} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <style is:global>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf8f5;
+      --paper: #f4f1ec;
+      --border: #e0d9d0;
+      --text: #2c2825;
+      --text-muted: #7a6f65;
+      --text-light: #a09388;
+      --accent: #6b4f3a;
+      --accent-soft: #8b6f5a;
+      --link: #5a4a3a;
+      --link-hover: #3a2a1a;
+      --warm-bg: #f7f2eb;
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: system-ui, -apple-system, sans-serif;
+    }
+
+    html { font-size: 17px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--serif);
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: var(--link); }
+    a:hover { color: var(--link-hover); }
+
+    /* ── Nav ────────────────────────────── */
+    header {
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+    }
+    .site-nav {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: normal;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav-logo:hover { color: var(--link-hover); }
+    .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Main ───────────────────────────── */
+    main {
+      flex: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+      width: 100%;
+    }
+
+    /* ── Typography ─────────────────────── */
+    h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: normal;
+      color: var(--accent);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: normal;
+      color: var(--accent);
+      margin: 2.5rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin: 1.75rem 0 0.5rem;
+    }
+    p { margin-bottom: 1.1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol { padding-left: 1.5rem; margin-bottom: 1.1rem; }
+    li { margin-bottom: 0.45rem; line-height: 1.65; }
+
+    strong { font-weight: bold; color: var(--text); }
+    em { font-style: italic; }
+
+    /* ── Page hero ──────────────────────── */
+    .page-hero {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-hero .subtitle {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      line-height: 1.6;
+    }
+    .breadcrumb {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-bottom: 0.75rem;
+    }
+    .breadcrumb a { color: var(--text-light); }
+
+    /* ── Cards ──────────────────────────── */
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 { margin-top: 0; }
+    .card-warm {
+      background: #fdf6ee;
+      border-color: #d4c4b0;
+    }
+    .card-caution {
+      background: #fdf8f0;
+      border-color: #c8b090;
+    }
+    .card-caution h2 { color: #7a5a2a; }
+    .card-protection {
+      background: #f5f0f8;
+      border-color: #c0b0d0;
+    }
+
+    /* ── Can wait box ───────────────────── */
+    .can-wait {
+      background: var(--warm-bg);
+      border-left: 3px solid var(--accent-soft);
+      padding: 1rem 1.25rem;
+      margin: 2rem 0;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      border-radius: 0 4px 4px 0;
+    }
+    .can-wait strong { color: var(--accent); }
+
+    /* ── Emotional note ─────────────────── */
+    .emotional-note {
+      border-top: 1px solid var(--border);
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ── Timeline nav ───────────────────── */
+    .timeline-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin: 2rem 0;
+    }
+    .timeline-card {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+      display: block;
+    }
+    .timeline-card:hover {
+      border-color: var(--accent-soft);
+      background: var(--warm-bg);
+      text-decoration: none;
+    }
+    .timeline-card .when {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-light);
+      margin-bottom: 0.3rem;
+    }
+    .timeline-card .what {
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+
+    /* ── Account grid ───────────────────── */
+    .account-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .account-card {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.15s;
+    }
+    .account-card:hover { border-color: var(--accent-soft); text-decoration: none; }
+    .account-card h3 { margin: 0 0 0.25rem; font-size: 0.9rem; }
+    .account-card p { font-size: 0.8rem; color: var(--text-muted); font-family: var(--sans); margin: 0; }
+
+    /* ── Footer ─────────────────────────── */
+    footer {
+      background: var(--paper);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+    footer a { color: var(--text-light); }
+    footer a:hover { color: var(--text-muted); }
+
+    /* ── Responsive ─────────────────────── */
+    @media (max-width: 600px) {
+      html { font-size: 16px; }
+      main { padding: 2rem 1.25rem 4rem; }
+      header { padding: 1rem 1.25rem; }
+      h1 { font-size: 1.65rem; }
+      .timeline-nav, .account-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="site-nav">
+      <a href="/" class="nav-logo">Closing Accounts</a>
+      <div class="nav-links">
+        <a href="/timeline/">When to act</a>
+        <a href="/accounts/">The accounts</a>
+        <a href="/protect-yourself/">Protect yourself</a>
+        <a href="/what-can-wait/">What can wait</a>
+        <a href="/not-just-paperwork/">It's not just paperwork</a>
+        <a href="/about/">About</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <slot />
+  </main>
+  <footer>
+    <p>Closing Accounts is free. No tracking. No sales pitches. No affiliate links.</p>
+    <p>Part of the data sovereignty toolkit: <a href="https://cancelfreely.com">CancelFreely</a> · <a href="https://deletefreely.com">DeleteFreely</a> · <a href="https://ditchthemega.com">DitchTheMega</a></p>
+    <p style="margin-top: 0.5rem;"><a href="/about/">About</a> · <a href="https://ko-fi.com/cancelfreely">☕ Buy us a coffee</a></p>
+  </footer>
+</body>
+</html>
