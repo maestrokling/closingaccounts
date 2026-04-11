@@ -1,0 +1,126 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const states = [
+  { state: "Alabama", threshold: "$25,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate affidavit for personal property only" },
+  { state: "Alaska", threshold: "$50,000", simplified: "Yes", timeline: "6–18 months", notes: "Summary distribution available under $50K" },
+  { state: "Arizona", threshold: "$75,000 personal / $100,000 real property", simplified: "Yes", timeline: "4–12 months", notes: "Community property state" },
+  { state: "Arkansas", threshold: "$100,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate affidavit available" },
+  { state: "California", threshold: "$184,500", simplified: "Yes", timeline: "9–18 months", notes: "Threshold adjusts every 3 years (next update 2028). Real property has separate rules. Community property state." },
+  { state: "Colorado", threshold: "$80,000", simplified: "Yes", timeline: "6–12 months", notes: "Simplified successor affidavit available" },
+  { state: "Connecticut", threshold: "$40,000", simplified: "Yes", timeline: "6–12 months", notes: "Simplified probate for small estates" },
+  { state: "Delaware", threshold: "$30,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate settlement available" },
+  { state: "Florida", threshold: "$75,000 or 2-year limit", simplified: "Yes", timeline: "6–12 months", notes: "Summary administration available. No state estate tax." },
+  { state: "Georgia", threshold: "$10,000", simplified: "Yes", timeline: "6–12 months", notes: "Affidavit of heirship for small estates; threshold is notably low" },
+  { state: "Hawaii", threshold: "$100,000", simplified: "Yes", timeline: "6–18 months", notes: "Successor affidavit available" },
+  { state: "Idaho", threshold: "$100,000", simplified: "Yes", timeline: "6–12 months", notes: "Community property state" },
+  { state: "Illinois", threshold: "$100,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate affidavit available" },
+  { state: "Indiana", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Surviving spouse may claim under certain conditions without probate" },
+  { state: "Iowa", threshold: "$200,000", simplified: "Yes", timeline: "6–18 months", notes: "High threshold; simplified proceedings available" },
+  { state: "Kansas", threshold: "$40,000", simplified: "Yes", timeline: "6–12 months", notes: "Affidavit for small estates" },
+  { state: "Kentucky", threshold: "$30,000", simplified: "Yes", timeline: "6–12 months", notes: "Simplified settlement for small estates" },
+  { state: "Louisiana", threshold: "$125,000", simplified: "Yes", timeline: "3–9 months", notes: "Civil law state. \"Small succession\" affidavit available. Community property state." },
+  { state: "Maine", threshold: "$40,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate affidavit available" },
+  { state: "Maryland", threshold: "$50,000 ($100,000 if surviving spouse is sole heir)", simplified: "Yes", timeline: "6–12 months", notes: "Modified administration for small estates" },
+  { state: "Massachusetts", threshold: "$25,000 personal property", simplified: "Yes", timeline: "9–18 months", notes: "Voluntary administration for small estates; longer timeline typical" },
+  { state: "Michigan", threshold: "$25,000 (adjusts for inflation)", simplified: "Yes", timeline: "6–12 months", notes: "Threshold increases with CPI" },
+  { state: "Minnesota", threshold: "$75,000", simplified: "Yes", timeline: "6–12 months", notes: "Affidavit of survivorship and small estate procedures available" },
+  { state: "Mississippi", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Muniment of title and small estate procedures" },
+  { state: "Missouri", threshold: "$40,000", simplified: "Yes", timeline: "6–12 months", notes: "Refusal to administer and small estate affidavit available" },
+  { state: "Montana", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate affidavit available" },
+  { state: "Nebraska", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Summary administration available" },
+  { state: "Nevada", threshold: "$25,000", simplified: "Yes", timeline: "6–12 months", notes: "Community property state. Set-aside for surviving spouse available." },
+  { state: "New Hampshire", threshold: "$10,000", simplified: "Yes", timeline: "6–18 months", notes: "Very low threshold; voluntary administration available" },
+  { state: "New Jersey", threshold: "$20,000 ($50,000 for surviving spouse)", simplified: "Yes", timeline: "6–18 months", notes: "Simplified administration for small estates" },
+  { state: "New Mexico", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Community property state. Small estate affidavit available." },
+  { state: "New York", threshold: "$50,000", simplified: "Yes", timeline: "9–18 months", notes: "Voluntary administration for small estates; NYC courts are slower" },
+  { state: "North Carolina", threshold: "$20,000 ($30,000 for surviving spouse)", simplified: "Yes", timeline: "6–12 months", notes: "Summary administration available" },
+  { state: "North Dakota", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Summary administration available" },
+  { state: "Ohio", threshold: "$35,000 ($100,000 for surviving spouse)", simplified: "Yes", timeline: "6–12 months", notes: "Release from administration available" },
+  { state: "Oklahoma", threshold: "$200,000", simplified: "Yes", timeline: "6–12 months", notes: "High threshold; summary administration available" },
+  { state: "Oregon", threshold: "$275,000 total ($75,000 personal property only)", simplified: "Yes", timeline: "4–12 months", notes: "Two tracks: personal property affidavit under $75K; summary administration under $275K" },
+  { state: "Pennsylvania", threshold: "$50,000", simplified: "Yes", timeline: "6–18 months", notes: "Short certificate process; family exemption available" },
+  { state: "Rhode Island", threshold: "$15,000", simplified: "Yes", timeline: "6–18 months", notes: "Low threshold; simplified procedures are limited in scope" },
+  { state: "South Carolina", threshold: "$25,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate affidavit available" },
+  { state: "South Dakota", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Summary administration available" },
+  { state: "Tennessee", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate affidavit for personal property" },
+  { state: "Texas", threshold: "$75,000", simplified: "Yes", timeline: "4–12 months", notes: "Community property state. Muniment of title and small estate affidavit available. Probate is relatively informal in Texas." },
+  { state: "Utah", threshold: "$100,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate affidavit available" },
+  { state: "Vermont", threshold: "$45,000", simplified: "Yes", timeline: "6–18 months", notes: "Small estate procedures available" },
+  { state: "Virginia", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Small estate affidavit for assets without title; must wait 60 days after death" },
+  { state: "Washington", threshold: "$100,000", simplified: "Yes", timeline: "4–12 months", notes: "Community property state. No-probate affidavit available; must notify other successors." },
+  { state: "West Virginia", threshold: "$100,000", simplified: "Yes", timeline: "6–12 months", notes: "Summary administration available" },
+  { state: "Wisconsin", threshold: "$50,000", simplified: "Yes", timeline: "6–12 months", notes: "Community property state. Transfer by affidavit available." },
+  { state: "Wyoming", threshold: "$200,000", simplified: "Yes", timeline: "6–12 months", notes: "High threshold; summary administration available" },
+  { state: "Washington D.C.", threshold: "$40,000", simplified: "Yes", timeline: "6–18 months", notes: "Small estate summary available" },
+];
+---
+<Layout title="Probate by State: What to Expect Where You Live" description="A state-by-state reference for probate basics — small estate thresholds, simplified probate availability, and typical timelines. Not legal advice.">
+
+<div class="page-hero">
+  <h1>Probate Basics by State</h1>
+  <p class="subtitle">A reference for what to expect in your state. Not legal advice — an orientation so you know whether to call an attorney or handle it yourself.</p>
+</div>
+
+<div class="card card-caution">
+  <p><strong>This information is for general orientation only. It is not legal advice.</strong> Probate laws change. Thresholds are updated. Procedures vary by county. Verify current requirements with your state's probate court or an estate attorney before taking action.</p>
+  <p style="margin-top:.5rem;font-size:0.85rem;">Last verified: April 2026. Thresholds that adjust for inflation (California, Michigan, others) may have changed. When in doubt, confirm with your state court.</p>
+</div>
+
+<section class="card">
+  <h2>What probate is — briefly</h2>
+  <p>Probate is the legal process of settling a deceased person's estate: validating their will, paying debts, and distributing assets to beneficiaries. <strong>Not every estate requires probate.</strong> Assets that pass by joint ownership, beneficiary designation, or trust typically bypass probate entirely. If the estate is small enough, a simplified affidavit process may be available instead of full probate.</p>
+  <p>The table below shows the small estate threshold for each state — the amount below which you may be able to use a simplified process instead of going through the courts.</p>
+</section>
+
+<div style="overflow-x: auto; margin: 1.5rem 0;">
+<table style="width:100%; border-collapse:collapse; font-size:0.875rem; font-family: var(--sans);">
+  <thead>
+    <tr style="border-bottom:2px solid var(--border); text-align:left;">
+      <th style="padding:.6rem .75rem; color:var(--accent); font-weight:600;">State</th>
+      <th style="padding:.6rem .75rem; color:var(--accent); font-weight:600;">Small Estate Threshold</th>
+      <th style="padding:.6rem .75rem; color:var(--accent); font-weight:600;">Simplified Available</th>
+      <th style="padding:.6rem .75rem; color:var(--accent); font-weight:600;">Typical Timeline</th>
+      <th style="padding:.6rem .75rem; color:var(--accent); font-weight:600;">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {states.map((row, i) => (
+      <tr style={`border-bottom:1px solid var(--border); background: ${i % 2 === 0 ? 'var(--paper)' : 'var(--cream)'}`}>
+        <td style="padding:.55rem .75rem; font-weight:500; white-space:nowrap;">{row.state}</td>
+        <td style="padding:.55rem .75rem; white-space:nowrap;">{row.threshold}</td>
+        <td style="padding:.55rem .75rem; text-align:center;">{row.simplified}</td>
+        <td style="padding:.55rem .75rem; white-space:nowrap;">{row.timeline}</td>
+        <td style="padding:.55rem .75rem; color:var(--text-muted); font-size:0.8rem;">{row.notes}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+</div>
+
+<section class="card">
+  <h2>Community property states</h2>
+  <p>The following states are community property states, where property acquired during marriage is generally owned equally by both spouses: Arizona, California, Idaho, Louisiana, Nevada, New Mexico, Texas, Washington, and Wisconsin. If the deceased was married and lived in one of these states, the community property rules significantly affect which assets go through probate and which pass automatically to the surviving spouse.</p>
+</section>
+
+<section class="card">
+  <h2>What "simplified probate" means in practice</h2>
+  <p>Most states offer a simplified process for small estates — typically an affidavit (a sworn statement) that the successor presents to the institution holding the assets. Instead of going to court, you complete a form, attach a certified death certificate, and present it to the bank, financial institution, or DMV.</p>
+  <p>Key limitations of simplified probate:</p>
+  <ul>
+    <li>Must wait a certain period after death (typically 30–45 days, sometimes 60)</li>
+    <li>The estate value must fall below the state's threshold (often excluding certain assets)</li>
+    <li>Some states only allow it for personal property, not real estate</li>
+    <li>If there are disputes among heirs, simplified probate may not be available</li>
+  </ul>
+</section>
+
+<div class="can-wait">
+  <p>If the word "probate" is making you anxious, that's normal. For most estates — especially smaller ones — the process is more paperwork than courtroom. Many states allow simplified probate that takes a few forms and a few weeks. An estate attorney can tell you in one consultation whether your situation is simple or complex. That consultation is often worth the fee just for the peace of mind.</p>
+</div>
+
+<div class="emotional-note">
+  <p>Government systems are slow. Probate courts are slow. That is not your fault and it is not a reflection of how well you're managing. You are doing this while grieving. The fact that you looked up the process is already more than most people manage in the first weeks.</p>
+</div>
+
+</Layout>
