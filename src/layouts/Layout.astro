@@ -23,7 +23,9 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, Astro.site).href;
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="https://closingaccounts.com/og-image.png" />
+  <meta name="twitter:image" content="https://closingaccounts.com/og-image.png" />
   <style is:global>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
